@@ -1,0 +1,65 @@
+<html>
+<head>
+    <title>Inheritance</title>
+</head>
+<body>
+    <pre id="output"></pre>
+    <script>
+        class Person {
+            constructor(name, age, email) {
+                this.name = name;
+                this.age = age;
+                this.email = email;
+            }
+
+            // Traditional method
+            printDetails() {
+                return `Name: ${this.name}\nAge: ${this.age}\nEmail: ${this.email}`;
+            }
+
+            // Arrow function (arrow method as class property)
+            printDetailsArrow = () => {
+                return `Name: ${this.name}\nAge: ${this.age}\nEmail: ${this.email}`;
+            }
+        }
+
+        class Student extends Person {
+            constructor(name, age, email, rollNo) {
+                super(name, age, email);
+                this.rollNo = rollNo;
+
+                if (this.rollNo <= 0) {
+                    throw new Error('Roll number must be a positive integer.');
+                }
+            }
+
+            // Override traditional method
+            printDetails() {
+                return `${super.printDetails()}\nRoll Number: ${this.rollNo}`;
+            }
+
+            // Overriding the arrow function, no need for super
+            printDetailsArrow = () => {
+                return `Name: ${this.name}\nAge: ${this.age}\nEmail: ${this.email}\nRoll Number: ${this.rollNo}`;
+            }
+        }
+
+        try {
+            const student = new Student('Viven Hotwani', 19, 'viven.hotwani@example.com', 0);
+
+            const traditionalDetails = student.printDetails();
+            const arrowFunctionDetails = student.printDetailsArrow();
+
+            const logDetails = (details) => {
+                return `Details:\n${details}`;
+            };
+
+            const output = document.getElementById('output');
+            output.textContent = `Traditional Method Output:\n${logDetails(traditionalDetails)}\n\nArrow Function Method Output:\n${logDetails(arrowFunctionDetails)}`;
+        } catch (error) {
+            const output = document.getElementById('output');
+            output.textContent = `Error: ${error.message}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<html>
+<head>
+    <title>Class and Objects</title>
+</head>
+<body>
+    <pre id="output"></pre>
+    <script>
+        class Person {
+
+            constructor(name, age, email) {
+                this.name = name;
+                this.age = age;
+                this.email = email;
+            }
+
+            printDetails() {
+                return `Name: ${this.name}\nAge: ${this.age}\nEmail: ${this.email}`;
+            }
+
+            printDetailsArrow = () => {
+                return `Name: ${this.name}\nAge: ${this.age}\nEmail: ${this.email}`;
+            }
+        }
+
+        const person = new Person('Viven Hotwani', 19, 'viven.hotwani@example.com');
+
+        const traditionalDetails = person.printDetails();
+
+        const arrowFunctionDetails = person.printDetailsArrow();
+
+        const logDetails = (details) => {
+            return `Details:-\n${details}`;
+        }
+
+        const output = document.getElementById('output');
+        output.textContent = `Traditional Method Output:\n${logDetails(traditionalDetails)}\n\nArrow Function Method Output:\n${logDetails(arrowFunctionDetails)}`;
+    </script>
+</body>
+</html>

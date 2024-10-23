@@ -1,0 +1,133 @@
+<html>
+<head>
+    <title>Customized T-Shirt Order Form</title>
+    <style>
+        .hidden { display: none; }
+        .receipt { border: 1px solid #000; padding: 10px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <h1>Order Your Customized T-Shirt</h1>
+
+    <form id="orderForm">
+        <fieldset>
+            <legend>Customize Your T-Shirt</legend>
+
+            <label for="tagline">Tagline on the Shirt:</label>
+            <input type="text" id="tagline" name="tagline" placeholder="Enter your custom tagline" required>
+            <br><br>
+
+            <label for="color">Select T-Shirt Color:</label>
+            <select id="color" name="color" required>
+                <option value="" disabled selected>Select color</option>
+                <option value="white">White</option>
+                <option value="black">Black</option>
+                <option value="blue">Blue</option>
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <option value="yellow">Yellow</option>
+                <option value="orange">Orange</option>
+                <option value="pink">Pink</option>
+            </select>
+            <br><br>
+
+            <label for="size">Select T-Shirt Size:</label>
+            <select id="size" name="size" required>
+                <option value="" disabled selected>Select size</option>
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+                <option value="xl">XL</option>
+                <option value="xxl">XXL</option>
+            </select>
+            <br><br>
+
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" min="1" max="50" placeholder="Enter quantity" required>
+            <br><br>
+
+            <label for="delivery-date">Delivery Date:</label>
+            <input type="date" id="delivery-date" name="delivery-date" required>
+            <br><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Input Delivery Details</legend>
+
+            <label for="name">Recipient's Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter recipient's name" required>
+            <br><br>
+
+            <label for="address">Delivery Address:</label>
+            <input type="text" id="address" name="address" placeholder="Enter delivery address" required>
+            <br><br>
+
+            <label for="email">Email Address:</label>
+            <input type="email" id="email" name="email" placeholder="Enter recipient's email" required>
+            <br><br>
+
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter 10-digit phone number" required>
+            <br><br>
+
+            <label for="comments">Additional Comments or Special Instructions:</label>
+            <textarea id="comments" name="comments" rows="4" cols="50" placeholder="Enter any special instructions"></textarea>
+            <br><br>
+        </fieldset>
+
+        <button type="submit">Place Order</button>
+        <input type="reset" value="Reset">
+    </form>
+
+    <div id="receipt" class="hidden receipt"></div>
+
+    <script>
+        document.getElementById('orderForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+
+            const tagline = document.getElementById('tagline').value;
+            const phone = document.getElementById('phone').value;
+            const comments = document.getElementById('comments').value;
+
+            if (tagline.length > 50) {
+                alert('Tagline must be 50 characters or less.');
+                return;
+            }
+
+            if (phone.length !== 10) {
+                alert('Phone number must be exactly 10 digits.');
+                return;
+            }
+
+            if (comments.length > 200) {
+                alert('Comments must be 200 characters or less.');
+                return;
+            }
+
+            const receipt = document.getElementById('receipt');
+            const now = new Date();
+            const receiptDate = now.toLocaleDateString('en-US');
+            const receiptTime = now.toLocaleTimeString('en-US');
+
+            receipt.innerHTML = `
+                <h2>Order Receipt</h2>
+                <p>Date: ${receiptDate}</p>
+                <p>Time: ${receiptTime}</p>
+                <p>Tagline: ${tagline}</p>
+                <p>Color: ${document.getElementById('color').value}</p>
+                <p>Size: ${document.getElementById('size').value}</p>
+                <p>Quantity: ${document.getElementById('quantity').value}</p>
+                <p>Delivery Date: ${document.getElementById('delivery-date').value}</p>
+                <p>Recipient's Name: ${document.getElementById('name').value}</p>
+                <p>Delivery Address: ${document.getElementById('address').value}</p>
+                <p>Email: ${document.getElementById('email').value}</p>
+                <p>Phone: ${phone}</p>
+                <p>Comments: ${comments}</p>
+            `;
+
+            receipt.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
